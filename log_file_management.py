@@ -3,6 +3,7 @@ import os
 
 
 def write_to_file(order_response, currency_data):
+    open('../data.json', 'a+').close()
 
     response_json = order_response.json()
     data = {
@@ -20,21 +21,22 @@ def write_to_file(order_response, currency_data):
         "Order_stop_loss": response_json[19]
     }
 
-    if os.path.getsize('data.json') <= 0:
-        with open('data.json', 'w', encoding='utf-8') as f:
+    data_json = '../data.json'
+    if os.path.getsize(data_json) <= 0:
+        with open(data_json, 'w', encoding='utf-8') as f:
             json.dump([], f, ensure_ascii=False, indent=4)
 
-    with open('data.json', 'r', encoding='utf-8') as f:
+    with open(data_json, 'r', encoding='utf-8') as f:
         file_data = json.load(f)
 
     file_data.append(data)
 
-    with open('data.json', 'w', encoding='utf-8') as f:
+    with open(data_json, 'w', encoding='utf-8') as f:
         json.dump(file_data, f, ensure_ascii=False, indent=4)
 
 
 def read_from_file():
-    with open('data.json', 'r', encoding='utf-8') as f:
+    with open('../data.json', 'r+', encoding='utf-8') as f:
         file_data = f.read()
 
     json_data = json.loads(file_data)
