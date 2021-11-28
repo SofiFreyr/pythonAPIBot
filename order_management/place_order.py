@@ -28,10 +28,15 @@ def place_order_generalized(symbol, order_type, amount):
     # print("Order code reason: " + str(order_response.reason))
     # print("Order message: " + str(order_response.text))
 
-    # if order_response.status_code == 200:
-    #     print("Order response message: ", order_response.json())
+    if order_response.status_code == 200:
+        print("Order status code: " + str(order_response.status_code))
+        write_to_file(order_response, fresh_data)
+    else:
+        print("Order status code: " + str(order_response.status_code))
+        print("Order code reason: " + str(order_response.reason))
+        print("Order message: " + str(order_response.text))
+        RuntimeError("Failed to send order")
 
-    write_to_file(order_response, fresh_data)
 
 if __name__ == '__main__':
-    place_order_generalized("shibuah", "market", "-5000")
+    place_order_generalized("trxuah", "market", "1.5")

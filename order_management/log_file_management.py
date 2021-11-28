@@ -3,7 +3,7 @@ import os
 
 
 def write_to_file(order_response, currency_data):
-    open('data.json', 'a+').close()
+    open('order_history.json', 'a+').close()
 
     response_json = order_response.json()
     data = {
@@ -21,7 +21,7 @@ def write_to_file(order_response, currency_data):
         "Order_stop_loss": response_json[19]
     }
 
-    data_json = 'data.json'
+    data_json = 'order_history.json'
     if os.path.getsize(data_json) <= 0:
         with open(data_json, 'w', encoding='utf-8') as f:
             json.dump([], f, ensure_ascii=False, indent=4)
@@ -36,7 +36,7 @@ def write_to_file(order_response, currency_data):
 
 
 def read_order_history():
-    with open('order_management/data.json', 'r', encoding='utf-8') as f:
+    with open('order_management/order_history.json', 'r', encoding='utf-8') as f:
         file_data = f.read()
 
     json_data = json.loads(file_data)
