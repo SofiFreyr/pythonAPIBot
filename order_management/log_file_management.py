@@ -3,7 +3,7 @@ import os
 
 
 def write_to_file(order_response, currency_data):
-    open('../data.json', 'a+').close()
+    open('data.json', 'a+').close()
 
     response_json = order_response.json()
     data = {
@@ -11,8 +11,8 @@ def write_to_file(order_response, currency_data):
         "Order_code_reason": order_response.reason,
         "Order_ID": response_json[0],
         "Order_market": response_json[3],
-        "Order_market_bid>": currency_data[0][1],
-        "Order_market_ask>": currency_data[0][3],
+        "Order_market_bid": currency_data[0][1],
+        "Order_market_ask": currency_data[0][3],
         "Order_size_original": response_json[6],
         "Order_size": response_json[7],
         "Order_type": response_json[8],
@@ -21,7 +21,7 @@ def write_to_file(order_response, currency_data):
         "Order_stop_loss": response_json[19]
     }
 
-    data_json = '../data.json'
+    data_json = 'data.json'
     if os.path.getsize(data_json) <= 0:
         with open(data_json, 'w', encoding='utf-8') as f:
             json.dump([], f, ensure_ascii=False, indent=4)
@@ -35,11 +35,10 @@ def write_to_file(order_response, currency_data):
         json.dump(file_data, f, ensure_ascii=False, indent=4)
 
 
-def read_from_file():
-    with open('../data.json', 'r+', encoding='utf-8') as f:
+def read_order_history():
+    with open('order_management/data.json', 'r', encoding='utf-8') as f:
         file_data = f.read()
 
     json_data = json.loads(file_data)
 
-    for json_object in json_data:
-        print(json_object)
+    return json_data

@@ -1,7 +1,7 @@
 import requests
 
 
-def get_data():
+def get_general_data():
     # api-endpoint
     all_currencies = "https://api.kuna.io/v3/currencies"
     all_markets = "https://api.kuna.io/v3/markets"
@@ -28,9 +28,3 @@ def get_data():
             if id['id'].__contains__("uah"):
                 print("ID: " + id['id'] + "       24h change: " + str(id['price_change']))
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    get_data()
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
