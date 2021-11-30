@@ -1,5 +1,6 @@
 import json
 import os
+import time
 
 
 def write_order_to_file(order_response, currency_data):
@@ -38,7 +39,10 @@ def write_order_to_file(order_response, currency_data):
 def write_market_history_to_file(market_history):
     open('market_history.json', 'a+').close()
 
-    data = []
+    data = [{
+        "Log_time": time.time(),
+        "Relevant_markets": len(market_history)
+    }]
 
     for x in range(len(market_history)):
         market = market_history[x]

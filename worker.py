@@ -23,7 +23,7 @@ def sell_watcher():
                 new_ask = current_tick[0][3]
                 order_size_int = float(i['Order_size_original'])
 
-                if new_ask > order_bid and new_bid-order_ask > order_ask/25:
+                if new_ask > order_bid and new_bid-order_ask > order_ask/35:
                     print(f"Market: {symbol}, "
                           f"Old bid: {order_bid}, "
                           f"New bid: {new_bid}, "
@@ -34,8 +34,7 @@ def sell_watcher():
                     place_order_generalized(symbol, "market", order_size_int * -1 * 0.9975)
                     closed_orders.append(x)
 
-        tick_time = datetime.now().strftime('%d/%m/%Y %H:%M')
-        print(f"{tick_time} -> Tick. " +
+        print(f"{datetime.now().strftime('%d/%m/%Y %H:%M')} -> Tick. " +
               f"Closed orders so far: {len(closed_orders)}" +
               f"  Order pool size: {len(current_order_history)}")
         time.sleep(60)
@@ -60,7 +59,7 @@ def relevant_market_watcher():
 
         market_data = get_current_market_data(symbols)
 
-        print(f"Market Watcher Data ({symbol_count} relevant markets)")
+        print(f"{datetime.now().strftime('%d/%m/%Y %H:%M')} --> Market Watcher Data ({symbol_count} relevant markets)")
 
         for x in range(len(market_data)):
             i = market_data[x]
