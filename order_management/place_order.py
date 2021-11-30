@@ -1,6 +1,6 @@
 import requests
 
-from order_management.log_file_management import write_to_file
+from order_management.log_file_management import write_order_to_file
 from order_management.create_request_headers import create_request_headers
 from util.get_current_market_data import get_current_market_data
 
@@ -30,7 +30,7 @@ def place_order_generalized(symbol, order_type, amount):
 
     if order_response.status_code == 200:
         print("Order status code: " + str(order_response.status_code))
-        write_to_file(order_response, fresh_data)
+        write_order_to_file(order_response, fresh_data)
     else:
         print("Order status code: " + str(order_response.status_code))
         print("Order code reason: " + str(order_response.reason))
@@ -39,4 +39,4 @@ def place_order_generalized(symbol, order_type, amount):
 
 
 if __name__ == '__main__':
-    place_order_generalized("trxuah", "market", "1.5")
+    place_order_generalized("uniuah", "market", "0.005")

@@ -2,7 +2,7 @@ import json
 import os
 
 
-def write_to_file(order_response, currency_data):
+def write_order_to_file(order_response, currency_data):
     open('order_history.json', 'a+').close()
 
     response_json = order_response.json()
@@ -33,6 +33,37 @@ def write_to_file(order_response, currency_data):
 
     with open(data_json, 'w', encoding='utf-8') as f:
         json.dump(file_data, f, ensure_ascii=False, indent=4)
+
+
+def write_market_history_to_file(market_history):
+    open('market_history.json', 'a+').close()
+
+    data = []
+
+    for x in range(len(market_history)):
+        market = market_history[x]
+        data.append({
+            "Symbol": market[0],
+            "Current_bid": market[1],
+            "Current_ask": market[3],
+            "24h_change": market[6],
+        })
+
+    data_json = 'market_history.json'
+    if os.path.getsize(data_json) <= 0:
+        with open(data_json, 'w', encoding='utf-8') as f:
+            json.dump([], f, ensure_ascii=False, indent=4)
+            f.close()
+
+    with open(data_json, 'r', encoding='utf-8') as f:
+        file_data = json.load(f)
+        f.close()
+
+    file_data.append(data)
+
+    with open(data_json, 'w', encoding='utf-8') as f:
+        json.dump(file_data, f, ensure_ascii=False, indent=4)
+        f.close()
 
 
 def read_order_history():
