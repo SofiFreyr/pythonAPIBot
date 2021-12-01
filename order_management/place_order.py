@@ -39,4 +39,4 @@ def place_order_generalized(symbol, order_type, amount):
 
 
 if __name__ == '__main__':
-    place_order_generalized("trxuah", "market", "18")
+    place_order_generalized("shibuah", "market", "16000")

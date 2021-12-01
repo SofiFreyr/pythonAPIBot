@@ -39,20 +39,6 @@ def write_order_to_file(order_response, currency_data):
 def write_market_history_to_file(market_history):
     open('market_history.json', 'a+').close()
 
-    data = [{
-        "Log_time": time.time(),
-        "Relevant_markets": len(market_history)
-    }]
-
-    for x in range(len(market_history)):
-        market = market_history[x]
-        data.append({
-            "Symbol": market[0],
-            "Current_bid": market[1],
-            "Current_ask": market[3],
-            "24h_change": market[6],
-        })
-
     data_json = 'market_history.json'
     if os.path.getsize(data_json) <= 0:
         with open(data_json, 'w', encoding='utf-8') as f:
@@ -63,7 +49,15 @@ def write_market_history_to_file(market_history):
         file_data = json.load(f)
         f.close()
 
-    file_data.append(data)
+    for x in range(len(market_history)):
+        market = market_history[x]
+        file_data.append({
+            "Log_time": time.time(),
+            "Symbol": market[0],
+            "Current_bid": market[1],
+            "Current_ask": market[3],
+            "24h_change": market[6],
+        })
 
     with open(data_json, 'w', encoding='utf-8') as f:
         json.dump(file_data, f, ensure_ascii=False, indent=4)
