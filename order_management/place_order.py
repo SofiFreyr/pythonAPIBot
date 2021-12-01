@@ -16,7 +16,7 @@ def place_order_generalized(symbol, order_type, amount):
         "symbol": symbol,
         "type": order_type,
         "amount": amount,
-        "price": int(fresh_data[0][3])
+        "price": float(fresh_data[0][3])
     }
     order_headers = create_request_headers("/v3/auth/w/order/submit", request_body)
 
@@ -39,4 +39,4 @@ def place_order_generalized(symbol, order_type, amount):
 
 
 if __name__ == '__main__':
-    place_order_generalized("uniuah", "market", "0.005")
+    place_order_generalized("trxuah", "market", "18")
